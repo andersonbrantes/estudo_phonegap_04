@@ -11,4 +11,17 @@ $('.collection-item').on('click', function(){
 
 });
 
+$('#confirmar').on('click', function(){
+
+  var texto = '';
+
+  $('.badge').parent().each(function(){
+    var produto = this.firstChild.textContent;
+    var quantidade = this.lastChild.textContent;
+
+    texto += produto + ": " + quantidade + ", ";
+  });
+  $('#resumo').text(texto);
+});
+
 $('.modal-trigger').leanModal();

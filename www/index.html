@@ -57,17 +57,20 @@
     </div>
 
     <div class="fixed-action-btn">
-      <a href="#confirmacao" class="btn-floating btn-large waves-effect waves-light brown modal-trigger">
+      <a id="confirmar" href="#confirmacao" class="btn-floating btn-large waves-effect waves-light brown modal-trigger">
         <i class="material-icons">done</i>
       </a>
     </div>
 
     <div class="modal modal-fixed-footer" id="confirmacao">
       <div class="modal-content">
-        conteudo
+        <h5>Resumo do pedido</h5>
+        <input type="text" class="validate" placeholder="Número da mesa" id="numero-mesa">
+        <blockquote id="resumo"></blockquote>
       </div>
       <div class="modal-footer">
-        rodape
+        <button class="btn deep-orange waves-effect waves-light modal-close">Pedir</button>
+        <button class="btn-flat waves-effect waves-red modal-close">Cancelar</button>
       </div>
     </div>
 
