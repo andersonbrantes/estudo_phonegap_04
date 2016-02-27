@@ -7,6 +7,9 @@
     <author email="anderson@scupen.com" href="http://phonegap.com">
         Anderson Brantess
     </author>
+
+    <access origin="http://cozinhapp.sergiolopes.org" />
+    
     <content src="index.html" />
     <preference name="permissions" value="none" />
     <preference name="orientation" value="default" />
