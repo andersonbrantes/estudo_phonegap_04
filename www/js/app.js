@@ -84,10 +84,10 @@ $('.acao-finalizar').click(function() {
     var executeQuery = "INSERT INTO pedidos (mesa, pedido) VALUES (?,?)";
     transaction.executeSql(executeQuery, [mesa,pedido]
     , function(tx, result) {
-      alert('Inserted');
+      // alert('Inserted');
     },
     function(error){
-      alert('Error occurred');
+      // alert('Error occurred');
     });
   });
 
@@ -110,12 +110,12 @@ $('.acao-finalizar').click(function() {
 
 });
 
-// myDB.transaction(function(transaction) {
-// transaction.executeSql('SELECT * FROM pedidos', [], function (tx, results) {
-//   var len = results.rows.length, i;
-//     $("#rowCount").append(len);
-//   for (i = 0; i < len; i++){
-//     $("#TableData").append("<tr><td>"+results.rows.item(i).id+"</td><td>"+results.rows.item(i).title+"</td><td>"+results.rows.item(i).desc+"</td></tr>");
-//   }
-//   }, null);
-// });
+myDB.transaction(function(transaction) {
+transaction.executeSql('SELECT * FROM pedidos', [], function (tx, results) {
+  var len = results.rows.length, i;
+  // $("#rowCount").append(len);
+  for (i = 0; i < len; i++){
+    $("#pedidosLista .collection").append("<div class='collection-item waves-effect black-text'>"+results.rows.item(i).id+" - "+results.rows.item(i).mesa+" - "+results.rows.item(i).pedido+"</div>");
+  }
+  }, null);
+});
