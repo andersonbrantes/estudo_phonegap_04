@@ -50,18 +50,25 @@ $('.scan-qrcode').on('click', function(){
   });
 });
 
+// Wait for Cordova to load
+document.addEventListener('deviceready', onDeviceReady, false);
 
-var myDB = window.sqlitePlugin.openDatabase({name: "garconapp.db"});
+// Cordova is ready
+function onDeviceReady() {
+  // var db = window.sqlitePlugin.openDatabase({name: "my.db"});
+  // // ...
+  var myDB = window.sqlitePlugin.openDatabase({name: "garconapp.db"});
 
-myDB.transaction(function(transaction) {
-  transaction.executeSql('CREATE TABLE IF NOT EXISTS pedidos (id integer primary key, mesa integer, pedido text)', [],
-  function(tx, result) {
-    alert("Table created successfully");
-  },
-  function(error) {
-    alert("Error occurred while creating the table.");
+  myDB.transaction(function(transaction) {
+    transaction.executeSql('CREATE TABLE IF NOT EXISTS pedidos (id integer primary key, mesa integer, pedido text)', [],
+    function(tx, result) {
+      alert("Table created successfully");
+    },
+    function(error) {
+      alert("Error occurred while creating the table.");
+    });
   });
-});
+}
 
 $('.acao-finalizar').click(function() {
   var mesa = $('#numero-mesa').val();
