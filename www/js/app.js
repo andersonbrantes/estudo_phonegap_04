@@ -68,6 +68,17 @@ function onDeviceReady() {
       alert("Error occurred while creating the table.");
     });
   });
+
+
+  myDB.transaction(function(transaction) {
+    transaction.executeSql('SELECT * FROM pedidos', [], function (tx, results) {
+      var len = results.rows.length, i;
+      // $("#rowCount").append(len);
+      for (i = 0; i < len; i++){
+        $("#pedidosListaConteudo").append("<div class='collection-item waves-effect black-text'>"+results.rows.item(i).id+" - "+results.rows.item(i).mesa+" - "+results.rows.item(i).pedido+"</div>");
+      }
+    }, null);
+  });  
 }
 
 $('.acao-finalizar').click(function() {
@@ -108,14 +119,4 @@ $('.acao-finalizar').click(function() {
   //   }
   // });
 
-});
-
-myDB.transaction(function(transaction) {
-transaction.executeSql('SELECT * FROM pedidos', [], function (tx, results) {
-  var len = results.rows.length, i;
-  // $("#rowCount").append(len);
-  for (i = 0; i < len; i++){
-    $("#pedidosLista .collection").append("<div class='collection-item waves-effect black-text'>"+results.rows.item(i).id+" - "+results.rows.item(i).mesa+" - "+results.rows.item(i).pedido+"</div>");
-  }
-  }, null);
 });
