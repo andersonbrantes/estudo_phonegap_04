@@ -51,20 +51,30 @@ $('.scan-qrcode').on('click', function(){
 });
 
 $('.acao-finalizar').click(function() {
-  $.ajax({
-    url: 'http://cozinhapp.sergiolopes.org/novo-pedido',
-    data: {
-      mesa: $('#numero-mesa').val(),
-      pedido: $('#resumo').text()
-    },
-    success: function(resposta) {
-      Materialize.toast(resposta, 2000);
+  var mesa = $('#numero-mesa').val();
+  var pedido = $('#resumo').text();
 
-      $('#numero-mesa').val('');
-      $('.badge').remove();
-    },
-    error: function(erro){
-      Materialize.toast(erro.responseText, 3000, 'red-text');
-    }
-  });
+  var myDataRef = new Firebase('https://intense-heat-3989.firebaseio.com/');
+
+  if(myDataRef) {    
+    myDataRef.push({mesa: mesa, pedido: pedido});
+  }
+
+  // $.ajax({
+  //   url: 'http://cozinhapp.sergiolopes.org/novo-pedido',
+  //   data: {
+  //     mesa: $('#numero-mesa').val(),
+  //     pedido: $('#resumo').text()
+  //   },
+  //   success: function(resposta) {
+  //     Materialize.toast(resposta, 2000);
+  //
+  //     $('#numero-mesa').val('');
+  //     $('.badge').remove();
+  //   },
+  //   error: function(erro){
+  //     Materialize.toast(erro.responseText, 3000, 'red-text');
+  //   }
+  // });
+
 });
