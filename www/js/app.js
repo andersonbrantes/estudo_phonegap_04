@@ -50,15 +50,39 @@ $('.scan-qrcode').on('click', function(){
   });
 });
 
+
+var myDB = window.sqlitePlugin.openDatabase({name: "garconapp.db"});
+
+myDB.transaction(function(transaction) {
+  transaction.executeSql('CREATE TABLE IF NOT EXISTS pedidos (id integer primary key, mesa integer, pedido text)', [],
+  function(tx, result) {
+    alert("Table created successfully");
+  },
+  function(error) {
+    alert("Error occurred while creating the table.");
+  });
+});
+
 $('.acao-finalizar').click(function() {
   var mesa = $('#numero-mesa').val();
   var pedido = $('#resumo').text();
 
   var myDataRef = new Firebase('https://intense-heat-3989.firebaseio.com/');
 
-  if(myDataRef) {    
+  if(myDataRef) {
     myDataRef.push({mesa: mesa, pedido: pedido});
   }
+
+  myDB.transaction(function(transaction) {
+    var executeQuery = "INSERT INTO pedidos (mesa, pedido) VALUES (?,?)";
+    transaction.executeSql(executeQuery, [mesa,pedido]
+    , function(tx, result) {
+      alert('Inserted');
+    },
+    function(error){
+      alert('Error occurred');
+    });
+  });
 
   // $.ajax({
   //   url: 'http://cozinhapp.sergiolopes.org/novo-pedido',
@@ -78,3 +102,13 @@ $('.acao-finalizar').click(function() {
   // });
 
 });
+
+// myDB.transaction(function(transaction) {
+// transaction.executeSql('SELECT * FROM pedidos', [], function (tx, results) {
+//   var len = results.rows.length, i;
+//     $("#rowCount").append(len);
+//   for (i = 0; i < len; i++){
+//     $("#TableData").append("<tr><td>"+results.rows.item(i).id+"</td><td>"+results.rows.item(i).title+"</td><td>"+results.rows.item(i).desc+"</td></tr>");
+//   }
+//   }, null);
+// });
