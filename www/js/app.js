@@ -65,19 +65,20 @@ function onDeviceReady() {
   // // ...
   var myDB = window.sqlitePlugin.openDatabase({name: "garconapp.db"});
 
-  myDB.transaction(function(transaction) {
-    transaction.executeSql('CREATE TABLE IF NOT EXISTS pedidos (id integer primary key, mesa integer, pedido text)', [],
+  myDB.transaction(function(tx) {
+    tx.executeSql('CREATE TABLE IF NOT EXISTS pedidos (id integer primary key, mesa integer, pedido text)', [],
     function(tx, result) {
       alert("Table created successfully");
     },
     function(error) {
       alert("Error occurred while creating the table.");
+      myDB.close();
     });
   });
 
 
-  myDB.transaction(function(transaction) {
-    transaction.executeSql('SELECT * FROM pedidos', [], function (tx, results) {
+  myDB.transaction(function(tx) {
+    tx.executeSql('SELECT * FROM pedidos', [], function (tx, results) {
       var len = results.rows.length, i;
       // $("#rowCount").append(len);
       for (i = 0; i < len; i++){
