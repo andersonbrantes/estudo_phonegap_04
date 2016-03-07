@@ -50,11 +50,17 @@ $('.scan-qrcode').on('click', function(){
   });
 });
 
+for (i = 0; i < 5; i++){
+  $("#pedidosListaConteudo").append("<div class='collection-item waves-effect black-text'>mesa: "+ i + "</div>");
+}
+
+
 // Wait for Cordova to load
 document.addEventListener('deviceready', onDeviceReady, false);
 
 // Cordova is ready
 function onDeviceReady() {
+
   // var db = window.sqlitePlugin.openDatabase({name: "my.db"});
   // // ...
   var myDB = window.sqlitePlugin.openDatabase({name: "garconapp.db"});
@@ -78,7 +84,7 @@ function onDeviceReady() {
         $("#pedidosListaConteudo").append("<div class='collection-item waves-effect black-text'>"+results.rows.item(i).id+" - "+results.rows.item(i).mesa+" - "+results.rows.item(i).pedido+"</div>");
       }
     }, null);
-  });  
+  });
 }
 
 $('.acao-finalizar').click(function() {
