@@ -92,20 +92,19 @@ $('.acao-finalizar').click(function() {
   var mesa = $('#numero-mesa').val();
   var pedido = $('#resumo').text();
 
-  var myDataRef = new Firebase('https://intense-heat-3989.firebaseio.com/');
-
-  if(myDataRef) {
-    myDataRef.push({mesa: mesa, pedido: pedido});
-  }
+  // var myDataRef = new Firebase('https://intense-heat-3989.firebaseio.com/');
+  //
+  // if(myDataRef) {
+  //   myDataRef.push({mesa: mesa, pedido: pedido});
+  // }
 
   myDB.transaction(function(transaction) {
     var executeQuery = "INSERT INTO pedidos (mesa, pedido) VALUES (?,?)";
-    transaction.executeSql(executeQuery, [mesa,pedido]
-    , function(tx, result) {
-      // alert('Inserted');
+    transaction.executeSql(executeQuery, [mesa,pedido], function(tx, result) {
+      alert('Inserted -> ' + result);
     },
     function(error){
-      // alert('Error occurred');
+      alert('Error occurred');
     });
   });
 
