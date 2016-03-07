@@ -50,17 +50,13 @@ $('.scan-qrcode').on('click', function(){
   });
 });
 
-for (i = 0; i < 5; i++){
-  $("#pedidosListaConteudo").append("<div class='collection-item waves-effect black-text'>mesa: "+ i + "</div>");
-}
-
 
 // Wait for Cordova to load
 document.addEventListener('deviceready', onDeviceReady, false);
 
 // Cordova is ready
 function onDeviceReady() {
-
+  $("#pedidosListaConteudo").empty();
   // var db = window.sqlitePlugin.openDatabase({name: "my.db"});
   // // ...
   var myDB = window.sqlitePlugin.openDatabase({name: "garconapp.db"});
@@ -76,10 +72,9 @@ function onDeviceReady() {
     });
   });
 
-
   myDB.transaction(function(tx) {
     tx.executeSql('SELECT * FROM pedidos', [], function (tx, results) {
-      var len = results.rows.length, i;
+      var len = results.rows.length;
       // $("#rowCount").append(len);
       for (i = 0; i < len; i++){
         $("#pedidosListaConteudo").append("<div class='collection-item waves-effect black-text'>"+results.rows.item(i).id+" - "+results.rows.item(i).mesa+" - "+results.rows.item(i).pedido+"</div>");
